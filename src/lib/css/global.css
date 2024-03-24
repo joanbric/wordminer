@@ -1,0 +1,144 @@
+/* VARIABLES */
+:root {
+	/* COLORS AND IMAGES */
+	--clr-pri-light: rgb(235, 235, 230);
+	--clr-pri-dark: rgb(64, 64, 64);
+	--clr-sec-light: rgb(245, 245, 220);
+	--clr-sec-dark: rgb(45, 48, 71);
+	--clr-opt-light: rgb(152, 68, 71);
+	--clr-opt-dark: rgb(45, 70, 84);
+	--bgi-light: url('/bg-natural-paper.avif');
+	--bgi-dark: url('/bg-buried.avif');
+
+
+    --clr-pri: '';
+    --clr-sec: '';
+    --clr-ter: '';
+    --clr-com: '';
+    
+
+	/* LIGHT THEME */
+	--bgc: var(--clr-pri-light);
+	--bgi: var(--bgi-light);
+	--fnt-clr: var(--clr-sec-dark);
+	--btn-bgc: var(--clr-pri-dark);
+	--btn-frc: var(--clr-sec-light);
+	--btn-box-shadow: 0 6px 0 rgba(0, 0, 0, 0.2);
+	--btn-hover-bgc: var(--clr-sec-dark);
+	--btn-active-bgc: var(--clr-opt-dark);
+	--btn-active-box-shadow: 0 3px 0 rgba(0, 0, 0, 0.2);
+	--inp-clr-border-bottom: var(--clr-pri-dark);
+}
+@media (prefers-color-scheme: dark) {
+	:root {
+		/* DARK THEME */
+		--bgc: var(--clr-pri-dark);
+		--bgi: var(--bgi-dark);
+		--fnt-clr: var(--clr-pri-light);
+		--btn-bgc: var(--clr-sec-light);
+		--btn-frc: var(--clr-pri-dark);
+		--btn-box-shadow: 0 6px 0 rgba(255, 255, 255, 0.2);
+		--btn-hover-bgc: var(--clr-pri-light);
+		--btn-active-bgc: var(--clr-opt-light);
+		--btn-active-box-shadow: 0 3px 0 rgba(255, 255, 255, 0.2);
+		--inp-clr-border-bottom: var(--clr-pri-light);
+	}
+}
+
+/* GENERAL */
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+/* BODY */
+body {
+	background-color: var(--bgc);
+	background-image: var(--bgi);
+	font-family: '3', sans-serif;
+	color: var(--fnt-clr);
+}
+main {
+	max-width: 1200px;
+	margin-inline: auto;
+    padding-inline: .5rem;
+}
+h1,
+h2,
+h3,
+h4 {
+	font-family: 'Lora', serif;
+    text-wrap: balance;
+    margin-block: 1rem;
+}
+
+p{
+    text-wrap: pretty;
+    margin-block: 1rem;
+}
+li{
+    list-style: none;
+}
+a.btn-primary{
+text-decoration: none;
+}
+button.btn-primary, a.btn-primary {
+	background-color: var(--btn-bgc);
+	border: none;
+	color: var(--btn-frc);
+	border-radius: 6px;
+	font-weight: 600;
+	box-shadow: var(--btn-box-shadow);
+	padding: 0.5rem 1rem;
+	margin-block: 1.5rem;
+	font-size: 1rem;
+}
+button.btn-primary:not(:disabled):hover, a.btn-primary:not(:disabled):hover {
+	background-color: var(--btn-hover-bgc);
+}
+button.btn-primary:not(:disabled):active, a.btn-primary:not(:disabled):active {
+	background-color: var(--btn-active-bgc);
+	box-shadow: var(--btn-active-box-shadow);
+	transform: translateY(3px);
+}
+button.btn-primary:disabled, a.btn-primary:disabled{
+    opacity: .5;
+}
+
+input {
+	background: none;
+	outline: none;
+	border: none;
+	border-bottom: 2px solid var(--inp-clr-border-bottom);
+	color: inherit;
+	font-weight: 700;
+	padding: 0.1rem 0.5rem;
+	margin: 1rem;
+}
+
+
+a{
+    color: var(--clr-pri-light)
+}
+
+
+.custom-dropzone {
+    background-color: var(--clr-pri-light);
+    margin: 1rem auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    color: var(--clr-pri-light);
+    font-weight: 700;
+    font-size: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: inset 0 0 1rem 5rem var(--clr-sec-dark);
+    transition: box-shadow 0.3s ease;
+    border: 2px dashed var(--clr-sec-dark);
+}
+.custom-dropzone.on-over {
+    box-shadow: inset 0 0 1rem 0.2rem var(--clr-sec-dark);
+    color: var(--clr-sec-dark);
+}

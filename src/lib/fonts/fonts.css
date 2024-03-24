@@ -1,0 +1,32 @@
+@font-face {
+	font-family: 'Montserrat';
+	src: url('montserrat/webfonts/montserrat-latin-400-normal.woff2') format('woff2'),
+		url('montserrat/webfonts/montserrat-latin-400-normal.woff') format('woff');
+	font-weight: 400;
+	font-display: swap;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Montserrat';
+	src: url('montserrat/webfonts/montserrat-latin-700-normal.woff2') format('woff2'),
+		url('montserrat/webfonts/montserrat-latin-700-normal.woff') format('woff');
+	font-weight: 700;
+	font-display: swap;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Lora';
+	src: url('lora/webfonts/lora-latin-400-normal.woff2') format('woff2'),
+		url('lora/webfonts/lora-latin-400-normal.woff') format('woff');
+	font-weight: 400;
+	font-display: swap;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Lora';
+	src: url('lora/webfonts/lora-latin-700-normal.woff2') format('woff2'),
+		url('lora/webfonts/lora-latin-700-normal.woff') format('woff');
+	font-weight: 700;
+	font-display: swap;
+	font-style: normal;
+}
