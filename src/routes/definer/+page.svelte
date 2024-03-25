@@ -1,6 +1,7 @@
 <script>
 	import SeoTag from '$lib/components/SEOTag.svelte';
 	import ImageOff from '$lib/components/icons/ImageOff.svelte';
+    import Alert from '$lib/components/Alert.svelte';
 	import { getSelectedWords } from './stores.js';
 	const seo = {
 		title: 'Definer',
@@ -8,9 +9,19 @@
 			"Definer is a free, open-source word miner. It uses the Tesseract OCR engine to extract text from images. It's powered by [SvelteKit](https://kit.svelte.dev/)."
 	};
 
+    let alert;
 	/** @type {import('./$types').ActionData} */
 	export let form;
-	const { img, text } = form || {};
+	const { status, img, text } = form || {};
+    $:{
+        if(status?.code === 500){
+            alert = {
+                type: 'error',
+                title: 'Error',
+                message: status.msg
+            };
+        }
+    }
 	import TextOnPage from './components/TextOnPage.svelte';
 	import MinedWords from './components/MinedWords.svelte';
 
@@ -48,8 +59,12 @@
 	}
 </script>
 
+
 <SeoTag {...seo} />
 
+{#if alert}
+    <Alert {...alert} />
+{/if}
 <h1>Mining the picture</h1>
 
 <section class="image-container">
