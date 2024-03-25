@@ -1,9 +1,9 @@
 <script>
 	import Loader from '$lib/components/Loader.svelte';
 	import SeoTag from '$lib/components/SEOTag.svelte';
-	import Alert from '../lib/components/Alert.svelte';
-	import optimizeImage from '../lib/utils/optimizeImage';
-	import InputCamera from '../lib/components/InputCamera.svelte';
+	import Alert from '$lib/components/Alert.svelte';
+	import optimizeImage from '$lib/utils/optimizeImage';
+	import InputCamera from '$lib/components/InputCamera.svelte';
 	import { get } from 'svelte/store';
 
 	const seo = {
@@ -34,8 +34,7 @@
 		form.submit();
 	}
 
-
-    async function getPicture({ detail: { uploadedImg } }) {
+	async function getPicture({ detail: { uploadedImg } }) {
 		if (uploadedImg) {
 			const { dataURL, originalImage } = await optimizeImage(uploadedImg);
 			form.addEventListener('formdata', ({ formData }) => {
