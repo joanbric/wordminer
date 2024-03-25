@@ -1,5 +1,16 @@
 
-import imgToTxt from '$lib/utils/imgToTxt';
+// import imgToTxt from '$lib/utils/imgToTxt';
+
+import { createWorker} from "tesseract.js";
+
+async function imgToTxt(img) {
+    
+    const worker = await createWorker("eng");
+    const ret = await worker.recognize(img);
+    worker.terminate();
+    return ret;
+
+}
 
 /** @type {import('./$types').Actions} */
 export const actions = {
