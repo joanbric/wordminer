@@ -42,6 +42,7 @@ export const actions = {
 				text
 			};
 		} catch (err) {
+            console.error(err)
 			return {
 				status: {
 					code: 500,
