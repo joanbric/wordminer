@@ -36,6 +36,7 @@
 		"@techstark/opencv-js": "4.9.0-release.3",
 		"dotenv": "16.4.5",
 		"svelte-file-dropzone": "2.0.4",
-		"tesseract.js": "5.0.5"
+		"tesseract.js": "5.0.5",
+		"tesseract.js-core": "5.0.0"
 	}
 }
