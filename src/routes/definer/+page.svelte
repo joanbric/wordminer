@@ -1,27 +1,59 @@
 <script>
 	import SeoTag from '$lib/components/SEOTag.svelte';
 	import ImageOff from '$lib/components/icons/ImageOff.svelte';
-    import Alert from '$lib/components/Alert.svelte';
+	import Alert from '$lib/components/Alert.svelte';
 	import { getSelectedWords } from './stores.js';
+	import Loader from '$lib/components/Loader.svelte';
+	import { createWorker } from 'tesseract.js';
+
+	export let form;
+	const { img, originalImage } = form || {};
+
+	async function tesseract(img, originalImage) {
+		try {
+			const worker = await createWorker('eng');
+			const ret = await worker.recognize(img);
+			worker.terminate();
+			const {
+				data: { words }
+			} = ret;
+
+			const text = words
+				.filter((word) => word.confidence > 45)
+				.map((word) => {
+					return {
+						text: word.text,
+						baseline: word.baseline,
+						font_size: word.font_size
+					};
+				});
+
+			return {
+				status: {
+					code: 200
+				},
+				img: originalImage,
+				text
+			};
+		} catch (err) {
+			console.error(err);
+			return {
+				status: {
+					code: 500,
+					msg: err.message
+				}
+			};
+		}
+	}
+
 	const seo = {
 		title: 'Definer',
 		description:
 			"Definer is a free, open-source word miner. It uses the Tesseract OCR engine to extract text from images. It's powered by [SvelteKit](https://kit.svelte.dev/)."
 	};
 
-    let alert;
-	/** @type {import('./$types').ActionData} */
-	export let form;
-	const { status, img, text } = form || {};
-    $:{
-        if(status?.code === 500){
-            alert = {
-                type: 'error',
-                title: 'Error',
-                message: status.msg
-            };
-        }
-    }
+	let alert;
+
 	import TextOnPage from './components/TextOnPage.svelte';
 	import MinedWords from './components/MinedWords.svelte';
 
@@ -59,27 +91,31 @@
 	}
 </script>
 
-
 <SeoTag {...seo} />
 
 {#if alert}
-    <Alert {...alert} />
+	<Alert {...alert} />
 {/if}
 <h1>Mining the picture</h1>
 
 <section class="image-container">
 	{#if img}
-		<div class="controllers">
-			<MinedWords />
-			<button class="btn-primary" on:click={testStream}>Define</button>
-			{#if response}
-				<section class="response-container">
-					<h2>Definition</h2>
-					<p class="response">{response}</p>
-				</section>
-			{/if}
-		</div>
-		<TextOnPage imgHref={img} {text} />
+		{#await tesseract(img, originalImage)}
+			<Loader isLoading={true} />
+		{:then response}
+        {@const { status, img, text } = response}
+			<div class="controllers">
+				<MinedWords />
+				<button class="btn-primary" on:click={testStream}>Define</button>
+				{#if response}
+					<section class="response-container">
+						<h2>Definition</h2>
+						<p class="response">{response}</p>
+					</section>
+				{/if}
+			</div>
+			<TextOnPage imgHref={img} {text} />
+		{/await}
 	{:else}
 		<p class="img-placeholder"><ImageOff />Image has not found or is invalid</p>
 		<a href="/">Go back to home</a>
