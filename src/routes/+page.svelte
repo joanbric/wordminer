@@ -4,6 +4,7 @@
 	import Alert from '$lib/components/Alert.svelte';
 	import optimizeImage from '$lib/utils/optimizeImage';
 	import InputCamera from '$lib/components/InputCamera.svelte';
+    import {createWorker} from 'tesseract.js'
 	import { get } from 'svelte/store';
 
 	const seo = {
@@ -37,11 +38,16 @@
 	async function getPicture({ detail: { uploadedImg } }) {
 		if (uploadedImg) {
 			const { dataURL, originalImage } = await optimizeImage(uploadedImg);
-			form.addEventListener('formdata', ({ formData }) => {
-				formData.set('imgBase64', dataURL);
-				formData.set('imgFile', originalImage);
-			});
-			form.submit();
+			// form.addEventListener('formdata', ({ formData }) => {
+			// 	formData.set('imgBase64', dataURL);
+			// 	formData.set('imgFile', originalImage);
+			// });
+			// form.submit();
+
+            const worker = await createWorker('eng');
+            const {data: {text}} = await worker.recognize(originalImage);
+            console.log(text)
+            await worker.terminate();
 		}
 	}
 
