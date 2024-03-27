@@ -18,7 +18,10 @@ export const actions = {
 			if (!data.has('imgBase64')) return;
 			const img = data.get('imgBase64');
 			const originalImage = data.get('imgFile');
-			const worker = await createWorker('eng');
+			const worker = await createWorker('eng', 1, {
+                corePath: "../../lib/tesseract.js-core/"
+                
+            });
 			const ret = await worker.recognize(img);
 			worker.terminate();
 			const {
