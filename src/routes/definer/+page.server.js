@@ -1,9 +1,9 @@
 // import imgToTxt from '$lib/utils/imgToTxt';
 
-// /** @type {import('@sveltejs/adapter-vercel').Config} */
-// export const config = {
-// 	runtime: 'edge'
-// };
+/** @type {import('@sveltejs/adapter-vercel').Config} */
+export const config = {
+	runtime: 'edge'
+};
 
 
 
