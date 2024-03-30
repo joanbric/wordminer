@@ -39,7 +39,6 @@ export default async function optimizeOpenCV(
 	// } catch (err) {
 	// 	console.error('El error es: ', err);
 	// }
-	// console.log(contours.size());
 	// // Get all contours
 	// let cnts = [];
 	// for (let i = 0; i < contours.size(); ++i) {

@@ -10,7 +10,6 @@
 		}
 	}) {
 		dispatch('drop', { uploadedImg });
-		console.log('Algo pasa');
 	}
 </script>
 

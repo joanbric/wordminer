@@ -103,7 +103,7 @@
 		{#await tesseract(img, originalImage)}
 			<Loader isLoading={true} />
 		{:then response}
-        {@const { status, img, text } = response}
+			{@const { status, img, text } = response}
 			<div class="controllers">
 				<MinedWords />
 				<button class="btn-primary" on:click={testStream}>Define</button>

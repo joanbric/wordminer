@@ -48,8 +48,8 @@ export async function GET({ request, url }) {
     }
 
     const prompt = `${systemPrompt} ${url.searchParams.get('context')}`;
-    return cloudflareAI(request, prompt);
 
+    return cloudflareAI(request, prompt);
 	// return OllamaAI(request, url);
 
 	// const selectedWords = []

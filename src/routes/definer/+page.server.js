@@ -1,11 +1,5 @@
 // import imgToTxt from '$lib/utils/imgToTxt';
 
-// /** @type {import('@sveltejs/adapter-vercel').Config} */
-// export const config = {
-// 	runtime: 'edge'
-// };
-
-
 /** @type {import('./$types').Actions} */
 export const actions = {
 	default: async ({ request }) => {
@@ -21,7 +15,6 @@ export const actions = {
                 originalImage
 			};
 		} catch (err) {
-            console.error(err)
 			return {
 				status: {
 					code: 500,
