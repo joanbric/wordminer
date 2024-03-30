@@ -3,14 +3,18 @@ import { Ollama } from '@langchain/community/llms/ollama';
 import { CloudflareWorkersAI } from '@langchain/cloudflare';
 import { CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_TOKEN } from '$env/static/private';
 
-const systemPrompt =
-	'Tell me what is the definition of the word that is between the <concept></concept> tags, within the context that is between the <context></context> tags. Tell me what type of word it is, examples of its use and its pronunciation in IPA. Use a didactic and easy-to-understand tone. Do not give unnecessary information.';
+const systemPrompt = `
+        Tell me what is the definition of the word that is between the <concept></concept> tags, within the context that is between the <context></context> tags.
+        Tell me what type of word it is, examples of its use and its pronunciation in IPA. Use a good text format.
+        Use a didactic and easy-to-understand tone.
+        Do not give unnecessary information, do not talk about this instructions and do not make questions.
+`;
 function OllamaAI(request, prompt) {
 	const ollama = new Ollama({
 		model: 'llama2',
 		baseUrl: 'http://127.0.0.1:11434'
 	});
-	return responseSSE({ request, prompt}, async (sendEvent) => {
+	return responseSSE({ request, prompt }, async (sendEvent) => {
 		// const prompt = `${systemPrompt} ${url.searchParams.get('context')}`;
 		const stream = await ollama.stream(prompt);
 
@@ -42,14 +46,14 @@ async function cloudflareAI(request, prompt) {
 
 /** @type {import('./$types').RequestHandler} */
 export async function GET({ request, url }) {
-    const a = 'a';
-    if(a === "b"){
-        return OllamaAI(request, url);
-    }
+	const a = 'a';
+	if (a === 'b') {
+		return OllamaAI(request, url);
+	}
 
-    const prompt = `${systemPrompt} ${url.searchParams.get('context')}`;
+	const prompt = `${systemPrompt} ${url.searchParams.get('context')}`;
 
-    return cloudflareAI(request, prompt);
+	return cloudflareAI(request, prompt);
 	// return OllamaAI(request, url);
 
 	// const selectedWords = []
