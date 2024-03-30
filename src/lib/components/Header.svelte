@@ -2,7 +2,6 @@
     <nav>
         <ul>
             <li><a href="/">Home</a></li>
-            <li><a href="/definer">Definer</a></li>
         </ul>
     </nav>
 </header>
