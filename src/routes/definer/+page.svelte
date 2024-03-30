@@ -70,24 +70,29 @@
 		await getChunks(reader);
 	}
 
-	async function testStream(event) {
+	async function testStream({target}) {
 		if (!img) return;
 		const str = getSelectedWords()
 			.map((e) => (e.is_key ? `<concept>${e.word}</concept>` : e.word))
 			.join(' ');
 
 		const context = `<context>${str}</context>`;
-
 		const eventSource = new EventSource(`/api/ai?context=${context}`);
-		event.target.textContent = 'Fetching chunks...';
+
+		target.textContent = 'Writing definition...';
+        target.disabled = true;
+        response = '';
 		eventSource.onmessage = ({ data }) => {
 			const streamedData = JSON.parse(data);
 			if (streamedData === '__END__') {
 				eventSource.close();
+                target.textContent = 'Redefine';
+                target.disabled = false;
 				return;
 			}
 			response += streamedData;
 		};
+
 	}
 </script>
 
@@ -102,11 +107,11 @@
 	{#if img}
 		{#await tesseract(img, originalImage)}
 			<Loader isLoading={true} />
-		{:then response}
-			{@const { status, img, text } = response}
+		{:then tesseractResponse}
+			{@const { status, img, text } = tesseractResponse}
 			<div class="controllers">
 				<MinedWords />
-				<button class="btn-primary" on:click={testStream}>Define</button>
+				<button class="btn-primary"  on:click={testStream}>Define</button>
 				{#if response}
 					<section class="response-container">
 						<h2>Definition</h2>
