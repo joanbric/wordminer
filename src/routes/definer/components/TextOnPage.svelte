@@ -1,21 +1,19 @@
 <script>
-	import { onMount } from 'svelte';
+	import {  afterUpdate } from 'svelte';
 
 	export let imgHref;
 	export let text;
 
 	import { addWord } from '../stores.js';
-	let image;
 	let img;
+	const image= new Image();
+	image.src = imgHref;
     let scaleRation;
-	onMount(async () => {
-        image = new Image();
-		image.src = imgHref;
-        console.log(image.width, image.height);
-		console.log(img.width, img.height);
+	afterUpdate(() => {
         scaleRation = img.width / image.width;
+        if(isNaN(scaleRation)) scaleRation = 1
+        
 	});
-	console.log(text);
 	function changeHandler(e, index) {
 		const word = text[index].text;
 		addWord(index, word);
@@ -24,7 +22,7 @@
 </script>
 
 <div class="container">
-	<img bind:this={img} src={imgHref} alt="Media" draggable="false" />
+	<img bind:this={img} on:load={(e) => (img = e.target)} src={imgHref} alt="Media" draggable="false" />
 	{#each text as word, index}
 		{@const pos = word.baseline}
 		<span
